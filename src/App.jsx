@@ -1,10 +1,14 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
+import useImageSearch from './hooks/useImageSearch';
 import Searchbar from './components/Searchbar';
 import ImageGallery from './components/ImageGallery';
 import Loader from './components/Loader';
 import Button from './components/Button';
 import Modal from './components/Modal';
+
 import './styles.css';
+
+const { images, loading } = useImageSearch(query, page);
 
 const API_KEY = '47475037-a019c47be6692940311d6755b';
 const PER_PAGE = 12;

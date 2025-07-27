@@ -1,6 +1,11 @@
-import { useEffect } from 'react';
+import { useRef, useEffect } from 'react';
+import useOnClickOutside from '../hooks/useOnClickOutside.jsx';
 
 export default function Modal({ image, onClose }) {
+  const modalRef = useRef();
+
+  useOnClickOutside(modalRef, onClose);
+
   useEffect(() => {
     const handleEsc = e => {
       if (e.code === 'Escape') onClose();
@@ -9,13 +14,9 @@ export default function Modal({ image, onClose }) {
     return () => window.removeEventListener('keydown', handleEsc);
   }, [onClose]);
 
-  const handleOverlayClick = e => {
-    if (e.target === e.currentTarget) onClose();
-  };
-
   return (
-    <div className="overlay" onClick={handleOverlayClick}>
-      <div className="modal">
+    <div className="overlay">
+      <div className="modal" ref={modalRef}>
         <img src={image} alt="" />
       </div>
     </div>
